@@ -1,0 +1,278 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Сталькрафт - О компании{% endblock %}
+
+{% block content %}
+  <!-- ======= Breadcrumbs ======= -->
+  <div class="breadcrumbs d-flex align-items-center" style="background-image: url({% static 'img/breadcrumbs-bg.jpg' %});">
+    <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
+      <h2>О компании</h2>
+      <ol>
+        <li><a href="{% url 'home' %}">Главная</a></li>
+        <li>О компании</li>
+      </ol>
+    </div>
+  </div><!-- End Breadcrumbs -->
+
+  <!-- ======= About Section ======= -->
+  <section id="about" class="about">
+    <div class="container" data-aos="fade-up">
+      <div class="row position-relative">
+        <div class="col-lg-7 about-img" style="background-image: url({% static 'img/about.jpg' %});"></div>
+        <div class="col-lg-7">
+          <h2>Надежный поставщик металлопроката</h2>
+          <div class="our-story">
+            <h4>Основано в 2005</h4>
+            <h3>Наша история</h3>
+            <p>Компания «Сталькрафт» основана в 2005 году и за годы работы зарекомендовала себя как надежный поставщик металлопроката, листовой стали, нержавеющей стали и алюминиевых сплавов. Мы сотрудничаем с ведущими металлургическими комбинатами России, обеспечивая клиентов высококачественными материалами, соответствующими ГОСТ и международным стандартам.</p>
+            <ul>
+              <li><i class="bi bi-check-circle"></i> <span>Широкий ассортимент продукции для строительства и промышленности</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>Оперативная доставка по всей России</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>Контроль качества на всех этапах поставки</span></li>
+            </ul>
+            <p>Наша миссия — предоставлять клиентам надежные решения для их проектов, обеспечивая бесперебойные поставки и индивидуальный подход. Мы гордимся тем, что наши материалы используются в крупных строительных и промышленных проектах по всей стране.</p>
+            <div class="watch-video d-flex align-items-center position-relative">
+              <i class="bi bi-play-circle"></i>
+              <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox stretched-link">Смотреть видео</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- End About Section -->
+
+  <!-- ======= Stats Counter Section ======= -->
+  <section id="stats-counter" class="stats-counter section-bg">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-lg-3 col-md-6">
+          <div class="stats-item d-flex align-items-center w-100 h-100">
+            <i class="bi bi-emoji-smile color-blue flex-shrink-0"></i>
+            <div>
+              <span data-purecounter-start="0" data-purecounter-end="500" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Довольных клиентов</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="stats-item d-flex align-items-center w-100 h-100">
+            <i class="bi bi-journal-richtext color-orange flex-shrink-0"></i>
+            <div>
+              <span data-purecounter-start="0" data-purecounter-end="1000" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Реализованных проектов</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="stats-item d-flex align-items-center w-100 h-100">
+            <i class="bi bi-headset color-green flex-shrink-0"></i>
+            <div>
+              <span data-purecounter-start="0" data-purecounter-end="2000" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Часов консультаций</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="stats-item d-flex align-items-center w-100 h-100">
+            <i class="bi bi-people color-pink flex-shrink-0"></i>
+            <div>
+              <span data-purecounter-start="0" data-purecounter-end="50" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Сотрудников</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Stats Counter Section -->
+
+  <!-- ======= Alt Services Section ======= -->
+  <section id="alt-services" class="alt-services">
+    <div class="container" data-aos="fade-up">
+      <div class="row justify-content-around gy-4">
+        <div class="col-lg-6 img-bg" style="background-image: url({% static 'img/alt-services.jpg' %});" data-aos="zoom-in" data-aos-delay="100"></div>
+        <div class="col-lg-5 d-flex flex-column justify-content-center">
+          <h3>Наши ценности</h3>
+          <p>Мы стремимся быть лидером в поставке металлопродукции, придерживаясь высоких стандартов качества и клиентского сервиса.</p>
+          <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="100">
+            <i class="bi bi-easel flex-shrink-0"></i>
+            <div>
+              <h4><a href="#" class="stretched-link">Качество</a></h4>
+              <p>Все наши продукты проходят строгий контроль качества и сопровождаются сертификатами соответствия.</p>
+            </div>
+          </div>
+          <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="200">
+            <i class="bi bi-patch-check flex-shrink-0"></i>
+            <div>
+              <h4><a href="#" class="stretched-link">Надежность</a></h4>
+              <p>Мы гарантируем своевременную доставку и выполнение всех обязательств перед клиентами.</p>
+            </div>
+          </div>
+          <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="300">
+            <i class="bi bi-brightness-high flex-shrink-0"></i>
+            <div>
+              <h4><a href="#" class="stretched-link">Инновации</a></h4>
+              <p>Мы используем современные технологии для обработки и доставки металлопродукции.</p>
+            </div>
+          </div>
+          <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="400">
+            <i class="bi bi-brightness-high flex-shrink-0"></i>
+            <div>
+              <h4><a href="#" class="stretched-link">Клиентоориентированность</a></h4>
+              <p>Мы предлагаем индивидуальные решения и консультации для каждого клиента.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Alt Services Section -->
+
+  <!-- ======= Alt Services Section 2 ======= -->
+  <section id="alt-services-2" class="alt-services section-bg">
+    <div class="container" data-aos="fade-up">
+      <div class="row justify-content-around gy-4">
+        <div class="col-lg-5 d-flex flex-column justify-content-center">
+          <h3>Наши достижения</h3>
+          <p>За годы работы мы заслужили доверие клиентов и партнеров, поставляя металлопрокат для крупных проектов по всей России.</p>
+          <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="100">
+            <i class="bi bi-easel flex-shrink-0"></i>
+            <div>
+              <h4><a href="#" class="stretched-link">Широкая география</a></h4>
+              <p>Поставки металлопродукции в более чем 50 регионов России.</p>
+            </div>
+          </div>
+          <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="200">
+            <i class="bi bi-patch-check flex-shrink-0"></i>
+            <div>
+              <h4><a href="#" class="stretched-link">Партнерство</a></h4>
+              <p>Сотрудничество с ведущими металлургическими комбинатами.</p>
+            </div>
+          </div>
+          <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="300">
+            <i class="bi bi-brightness-high flex-shrink-0"></i>
+            <div>
+              <h4><a href="#" class="stretched-link">Проекты</a></h4>
+              <p>Участие в строительстве крупных объектов, включая мосты и заводы.</p>
+            </div>
+          </div>
+          <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="400">
+            <i class="bi bi-brightness-high flex-shrink-0"></i>
+            <div>
+              <h4><a href="#" class="stretched-link">Технологии</a></h4>
+              <p>Использование передовых технологий резки и обработки металла.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 img-bg" style="background-image: url({% static 'img/alt-services-2.jpg' %});" data-aos="zoom-in" data-aos-delay="100"></div>
+      </div>
+    </div>
+  </section><!-- End Alt Services Section 2 -->
+
+  <!-- ======= Our Team Section ======= -->
+  <section id="team" class="team">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header">
+        <h2>Наша команда</h2>
+        <p>Наши профессионалы обеспечивают высокое качество обслуживания и поддержки клиентов.</p>
+      </div>
+      <div class="row gy-5">
+        <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="100">
+          <div class="member-img">
+            <img src="{% static 'img/team/team-1.jpg' %}" class="img-fluid" alt="">
+            <div class="social">
+              <a href="#"><i class="bi bi-vk"></i></a>
+              <a href="#"><i class="bi bi-telegram"></i></a>
+              <a href="#"><i class="bi bi-instagram"></i></a>
+              <a href="#"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="member-info text-center">
+            <h4>Иван Петров</h4>
+            <span>Генеральный директор</span>
+            <p>Руководит стратегическим развитием компании и партнерскими отношениями.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="200">
+          <div class="member-img">
+            <img src="{% static 'img/team/team-2.jpg' %}" class="img-fluid" alt="">
+            <div class="social">
+              <a href="#"><i class="bi bi-vk"></i></a>
+              <a href="#"><i class="bi bi-telegram"></i></a>
+              <a href="#"><i class="bi bi-instagram"></i></a>
+              <a href="#"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="member-info text-center">
+            <h4>Елена Смирнова</h4>
+            <span>Руководитель отдела продаж</span>
+            <p>Обеспечивает эффективное взаимодействие с клиентами и подбор оптимальных решений.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="300">
+          <div class="member-img">
+            <img src="{% static 'img/team/team-3.jpg' %}" class="img-fluid" alt="">
+            <div class="social">
+              <a href="#"><i class="bi bi-vk"></i></a>
+              <a href="#"><i class="bi bi-telegram"></i></a>
+              <a href="#"><i class="bi bi-instagram"></i></a>
+              <a href="#"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="member-info text-center">
+            <h4>Алексей Иванов</h4>
+            <span>Технический директор</span>
+            <p>Отвечает за контроль качества продукции и внедрение новых технологий.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="400">
+          <div class="member-img">
+            <img src="{% static 'img/team/team-4.jpg' %}" class="img-fluid" alt="">
+            <div class="social">
+              <a href="#"><i class="bi bi-vk"></i></a>
+              <a href="#"><i class="bi bi-telegram"></i></a>
+              <a href="#"><i class="bi bi-instagram"></i></a>
+              <a href="#"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="member-info text-center">
+            <h4>Ольга Кузнецова</h4>
+            <span>Финансовый директор</span>
+            <p>Управляет финансовыми процессами и обеспечивает прозрачность расчетов.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="500">
+          <div class="member-img">
+            <img src="{% static 'img/team/team-5.jpg' %}" class="img-fluid" alt="">
+            <div class="social">
+              <a href="#"><i class="bi bi-vk"></i></a>
+              <a href="#"><i class="bi bi-telegram"></i></a>
+              <a href="#"><i class="bi bi-instagram"></i></a>
+              <a href="#"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="member-info text-center">
+            <h4>Михаил Соколов</h4>
+            <span>Руководитель отдела маркетинга</span>
+            <p>Развивает бренд и продвигает продукцию на российском рынке.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="600">
+          <div class="member-img">
+            <img src="{% static 'img/team/team-6.jpg' %}" class="img-fluid" alt="">
+            <div class="social">
+              <a href="#"><i class="bi bi-vk"></i></a>
+              <a href="#"><i class="bi bi-telegram"></i></a>
+              <a href="#"><i class="bi bi-instagram"></i></a>
+              <a href="#"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="member-info text-center">
+            <h4>Анна Коваленко</h4>
+            <span>Руководитель отдела логистики</span>
+            <p>Организует оперативную доставку металлопродукции по всей России.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Our Team Section -->
+{% endblock %}

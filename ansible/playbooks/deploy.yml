@@ -1,0 +1,37 @@
+---
+- name: Deploy StalKraft project
+  hosts: web
+  gather_facts: true
+
+  vars:
+    project_root: /home/stalkraft/StalKraftProject
+    compose_files_src: /home/stalkraft/StalKraftProject
+
+  tasks:
+    - name: Ensure project directory exists
+      file:
+        path: "{{ project_root }}"
+        state: directory
+        owner: stalkraft
+        group: docker
+        mode: '0750'
+
+    - name: Synchronize project files
+      synchronize:
+        src: "{{ compose_files_src }}/"
+        dest: "{{ project_root }}/"
+        rsync_opts:
+          - "--exclude=.git"
+        delete: yes
+      delegate_to: localhost
+      become: false
+
+    - name: Run docker compose
+      community.docker.docker_compose_v2:
+        project_src: "{{ project_root }}"
+        files:
+          - docker-compose.yml
+        pull: always
+        build: always
+        state: present
+        recreate: always

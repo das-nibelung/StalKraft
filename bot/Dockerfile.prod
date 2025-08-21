@@ -1,0 +1,29 @@
+ARG REGISTRY=docker.io
+FROM ${REGISTRY}/python:3.12 AS builder
+
+WORKDIR /app
+
+# Копируем requirements и устанавливаем зависимости
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Копируем код приложения
+COPY . .
+
+# Stage 2: Runtime
+FROM python:3.12
+
+WORKDIR /app
+
+# Копируем зависимости из builder
+COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
+
+# Копируем код
+COPY --from=builder /app /app
+
+# Устанавливаем переменные среды
+ENV PYTHONUNBUFFERED=1
+
+# Запускаем Uvicorn (ASGI server) для FastAPI
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]

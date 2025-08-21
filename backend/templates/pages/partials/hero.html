@@ -1,0 +1,41 @@
+<section id="hero" class="hero">
+  <div class="info d-flex align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+          <h2 data-aos="fade-down">
+            Добро пожаловать в <span>Сталькрафт</span>
+          </h2>
+          <p data-aos="fade-up">
+            Компания «Сталькрафт» — ваш надежный поставщик металлопродукции по
+            всей России. Мы предлагаем широкий ассортимент металлопроката,
+            включая листовую сталь, нержавеющую сталь и алюминиевые сплавы,
+            соответствующие ГОСТ и международным стандартам.
+          </p>
+          <a
+            data-aos="fade-up"
+            data-aos-delay="200"
+            href="#get-started"
+            class="btn-get-started"
+          >
+            Начать сотрудничество
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    id="hero-carousel"
+    class="carousel slide"
+    data-bs-ride="carousel"
+    data-bs-interval="5000"
+  >
+    {% for slide in hero_slides %}
+    <div
+      class="carousel-item {% if forloop.first %}active{% endif %}"
+      style="background-image: url({% static slide.image %})"
+    ></div>
+    {% endfor %}
+  </div>
+</section>

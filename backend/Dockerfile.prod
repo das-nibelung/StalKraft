@@ -1,0 +1,11 @@
+ARG REGISTRY=docker.io
+FROM ${REGISTRY}/python:3.12
+WORKDIR /backend
+ENV PYTHONPATH="${PYTHONPATH}:/backend/apps"
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+COPY .env.prod /backend/.env
+RUN python manage.py collectstatic --noinput
+EXPOSE 8000
+CMD ["gunicorn", "backend.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]

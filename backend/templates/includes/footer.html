@@ -1,0 +1,116 @@
+<footer id="footer" class="footer">
+  <div class="footer-content position-relative">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class="footer-info">
+            <h3>Сталькрафт</h3>
+            <p>
+              ул. Металлургов, 10 <br />
+              Москва, Россия<br /><br />
+              <strong>Телефон:</strong> +7 495 123-45-67<br />
+              <strong>Email:</strong> info@stalkraft.ru<br />
+            </p>
+            <div class="social-links d-flex mt-3">
+              <a
+                href="https://vk.com/stalkraft"
+                class="d-flex align-items-center justify-content-center"
+              >
+                <i class="bi bi-vk"></i>
+              </a>
+              <a
+                href="https://t.me/stalkraft"
+                class="d-flex align-items-center justify-content-center"
+              >
+                <i class="bi bi-telegram"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Полезные ссылки</h4>
+          <ul>
+            <li><a href="{% url 'home' %}">Главная</a></li>
+            <li><a href="{% url 'about' %}">О компании</a></li>
+            <li><a href="{% url 'catalog' %}">Каталог</a></li>
+            <li><a href="{% url 'services' %}">Услуги</a></li>
+            <li><a href="{% url 'contact' %}">Контакты</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Наша продукция</h4>
+          <ul>
+            <li>
+              <a href="{% url 'catalog_category' 'sheet-steel' %}"
+                >Листовая сталь</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'catalog_category' 'stainless-steel' %}"
+                >Нержавеющая сталь</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'catalog_category' 'aluminum-alloys' %}"
+                >Алюминиевые сплавы</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'catalog_category' 'metal-rolling' %}"
+                >Металлопрокат</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Наши услуги</h4>
+          <ul>
+            <li>
+              <a href="{% url 'service_detail' 'metal-cutting' %}"
+                >Резка металла</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'service_detail' 'delivery' %}">Доставка</a>
+            </li>
+            <li>
+              <a href="{% url 'service_detail' 'consultation' %}"
+                >Консультации</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'service_detail' 'quality-control' %}"
+                >Контроль качества</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Дополнительно</h4>
+          <ul>
+            <li><a href="{% url 'delivery' %}">Информация о доставке</a></li>
+            <li>
+              <a href="{% url 'quality_standards' %}">Стандарты качества</a>
+            </li>
+            <li><a href="{% url 'partners' %}">Партнеры</a></li>
+            <li><a href="{% url 'career' %}">Карьера</a></li>
+            <li><a href="{% url 'faq' %}">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-legal text-center position-relative">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Сталькрафт</span></strong
+        >. Все права защищены
+      </div>
+    </div>
+  </div>
+</footer>

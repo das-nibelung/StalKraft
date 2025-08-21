@@ -1,0 +1,18 @@
+ARG REGISTRY=docker.io
+FROM ${REGISTRY}/node:20-alpine AS builder
+
+# Stage 1: Builder
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+COPY . .
+RUN yarn build
+RUN ls -R /app/build  # Debug: Проверяем содержимое /app/build
+
+# Stage 2: Export
+ARG REGISTRY=docker.io
+FROM ${REGISTRY}/alpine:latest
+WORKDIR /build
+RUN mkdir -p /build/react
+COPY --from=builder /app/build /build/react
+RUN ls -R /build  # Debug: Проверяем содержимое /build

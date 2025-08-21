@@ -1,0 +1,97 @@
+services:
+  postgres:
+    image: 127.0.0.1:5500/postgres:15
+    container_name: postgresql
+    restart: always
+    environment:
+      POSTGRES_DB: mysiberia_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+      args:
+        REGISTRY: 127.0.0.1:5500
+    container_name: django-backend
+    volumes:
+      - media_files:/backend/media
+      - static_files:/backend/static
+    depends_on:
+      - postgres
+    environment:
+      - DEBUG=True
+      - DJANGO_ALLOWED_HOSTS=127.0.0.1
+      - DB_HOST=postgres
+      - DB_NAME=stalkraft_db
+      - DB_USER=postgres
+      - DB_PASSWORD=12345
+    ports:
+      - "8000:8000"
+    networks:
+      - app_network
+
+  react_build:
+    build:
+      context: ./react_build
+      dockerfile: Dockerfile.dev
+      args:
+        REGISTRY: 127.0.0.1:5500
+    container_name: react_builder
+    volumes:
+      - static_files:/build
+    networks:
+      - app_network
+
+  bot:
+    build:
+      context: ./bot
+      dockerfile: Dockerfile.dev
+      args:
+        REGISTRY: 127.0.0.1:5500
+    container_name: fastapi-bot
+    restart: always
+    ports:
+      - "8001:8001"
+    depends_on:
+      - backend
+    networks:
+      - app_network
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+      args:
+        REGISTRY: 127.0.0.1:5500
+    container_name: nginx-server
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/certificates:/etc/nginx/certificates:Z
+      - static_files:/var/www/static:ro
+      - media_files:/var/www/media:ro
+
+    depends_on:
+      - backend
+      - bot
+    networks:
+      - app_network
+
+volumes:
+  pgdata:
+  media_files:
+  static_files:
+
+networks:
+  app_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
+          gateway: 172.30.0.1

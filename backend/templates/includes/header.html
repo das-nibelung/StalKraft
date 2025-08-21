@@ -1,0 +1,93 @@
+<header id="header" class="header d-flex align-items-center">
+  <div
+    class="container-fluid container-xl d-flex align-items-center justify-content-between"
+  >
+    <a href="{% url 'home' %}" class="logo d-flex align-items-center">
+      <h1>Сталькрафт<span></span></h1>
+    </a>
+
+    <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+    <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+
+    <nav id="navbar" class="navbar">
+      <ul>
+        <li>
+          <a
+            href="{% url 'home' %}"
+            class="{% if request.path == '/' %}active{% endif %}"
+            >Главная</a
+          >
+        </li>
+        <li>
+          <a
+            href="{% url 'about' %}"
+            class="{% if request.path == '/about/' %}active{% endif %}"
+            >О компании</a
+          >
+        </li>
+        <li>
+          <a
+            href="{% url 'catalog' %}"
+            class="{% if request.path == '/catalog/' %}active{% endif %}"
+            >Каталог</a
+          >
+        </li>
+        <li>
+          <a
+            href="{% url 'services' %}"
+            class="{% if request.path == '/services/' %}active{% endif %}"
+            >Услуги</a
+          >
+        </li>
+        <li>
+          <a
+            href="{% url 'blog' %}"
+            class="{% if request.path == '/blog/' %}active{% endif %}"
+            >Блог</a
+          >
+        </li>
+
+        <li class="dropdown">
+          <a href="#">
+            <span>Дополнительно</span>
+            <i class="bi bi-chevron-down dropdown-indicator"></i>
+          </a>
+          <ul>
+            <li><a href="{% url 'delivery' %}">Информация о доставке</a></li>
+            <li class="dropdown">
+              <a href="#">
+                <span>Техническая информация</span>
+                <i class="bi bi-chevron-down dropdown-indicator"></i>
+              </a>
+              <ul>
+                <li>
+                  <a href="{% url 'quality_standards' %}">Стандарты качества</a>
+                </li>
+                <li><a href="{% url 'steel_types' %}">Типы стали</a></li>
+                <li>
+                  <a href="{% url 'aluminum_alloys' %}">Алюминиевые сплавы</a>
+                </li>
+                <li>
+                  <a href="{% url 'stainless_steel' %}">Нержавеющая сталь</a>
+                </li>
+                <li><a href="{% url 'certificates' %}">Сертификаты</a></li>
+              </ul>
+            </li>
+            <li><a href="{% url 'partners' %}">Партнеры</a></li>
+            <li><a href="{% url 'career' %}">Карьера</a></li>
+            <li><a href="{% url 'faq' %}">FAQ</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a
+            href="{% url 'contact' %}"
+            class="{% if request.path == '/contact/' %}active{% endif %}"
+            >Контакты</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <!-- .navbar -->
+  </div>
+</header>

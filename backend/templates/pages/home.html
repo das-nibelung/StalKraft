@@ -1,0 +1,1186 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Сталькрафт -
+Главная{% endblock %} {% block content %}
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="hero">
+  <div class="info d-flex align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+          <h2 data-aos="fade-down">
+            Добро пожаловать в <span>Сталькрафт</span>
+          </h2>
+          <p data-aos="fade-up">
+            Компания «Сталькрафт» — ваш надежный поставщик металлопродукции по
+            всей России. Мы предлагаем широкий ассортимент металлопроката,
+            включая листовую сталь, нержавеющую сталь и алюминиевые сплавы,
+            соответствующие ГОСТ и международным стандартам.
+          </p>
+          <a
+            data-aos="fade-up"
+            data-aos-delay="200"
+            href="#get-started"
+            class="btn-get-started"
+            >Начать сотрудничество</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    id="hero-carousel"
+    class="carousel slide"
+    data-bs-ride="carousel"
+    data-bs-interval="5000"
+  >
+    <div
+      class="carousel-item active"
+      style="
+        background-image: url({% static 'img/hero-carousel/hero-carousel-1.jpg' %});
+      "
+    ></div>
+    <div
+      class="carousel-item"
+      style="
+        background-image: url({% static 'img/hero-carousel/hero-carousel-2.jpg' %});
+      "
+    ></div>
+    <div
+      class="carousel-item"
+      style="
+        background-image: url({% static 'img/hero-carousel/hero-carousel-3.jpg' %});
+      "
+    ></div>
+    <div
+      class="carousel-item"
+      style="
+        background-image: url({% static 'img/hero-carousel/hero-carousel-4.jpg' %});
+      "
+    ></div>
+    <div
+      class="carousel-item"
+      style="
+        background-image: url({% static 'img/hero-carousel/hero-carousel-5.jpg' %});
+      "
+    ></div>
+    <a
+      class="carousel-control-prev"
+      href="#hero-carousel"
+      role="button"
+      data-bs-slide="prev"
+    >
+      <span
+        class="carousel-control-prev-icon bi bi-chevron-left"
+        aria-hidden="true"
+      ></span>
+    </a>
+    <a
+      class="carousel-control-next"
+      href="#hero-carousel"
+      role="button"
+      data-bs-slide="next"
+    >
+      <span
+        class="carousel-control-next-icon bi bi-chevron-right"
+        aria-hidden="true"
+      ></span>
+    </a>
+  </div>
+</section>
+<!-- End Hero Section -->
+
+<main id="main">
+  <!-- ======= Get Started Section ======= -->
+  <section id="get-started" class="get-started section-bg">
+    <div class="container">
+      <div class="row justify-content-between gy-4">
+        <div class="col-lg-6 d-flex align-items-center" data-aos="fade-up">
+          <div class="content">
+            <h3>Качественный металлопрокат для ваших проектов</h3>
+            <p>
+              Мы поставляем металлопродукцию для строительства, машиностроения и
+              промышленности. Наши материалы проходят строгий контроль качества
+              и сопровождаются всеми необходимыми сертификатами.
+            </p>
+            <p>
+              Сотрудничество с ведущими металлургическими комбинатами России
+              позволяет нам предлагать конкурентные цены и оперативную доставку
+              в любой регион страны.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-5" data-aos="fade">
+          <form action="{% url 'quote' %}" method="post" class="php-email-form">
+            {% csrf_token %}
+            <h3>Запросить коммерческое предложение</h3>
+            <p>
+              Заполните форму, чтобы получить индивидуальное предложение на
+              поставку металлопродукции.
+            </p>
+            <div class="row gy-3">
+              <div class="col-md-12">
+                <input
+                  type="text"
+                  name="name"
+                  class="form-control"
+                  placeholder="Ваше имя"
+                  required
+                />
+              </div>
+              <div class="col-md-12">
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  placeholder="Ваш email"
+                  required
+                />
+              </div>
+              <div class="col-md-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="phone"
+                  placeholder="Ваш телефон"
+                  required
+                />
+              </div>
+              <div class="col-md-12">
+                <textarea
+                  class="form-control"
+                  name="message"
+                  rows="6"
+                  placeholder="Ваш запрос"
+                  required
+                ></textarea>
+              </div>
+              <div class="col-md-12 text-center">
+                <div class="loading">Загрузка...</div>
+                <div class="error-message"></div>
+                <div class="sent-message">
+                  Ваш запрос успешно отправлен. Спасибо!
+                </div>
+                <button type="submit">Отправить запрос</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Get Started Section -->
+
+  <!-- ======= Constructions Section ======= -->
+  <section id="constructions" class="constructions">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header">
+        <h2>Наша продукция</h2>
+        <p>
+          Мы предлагаем широкий ассортимент металлопроката для различных
+          отраслей промышленности и строительства.
+        </p>
+      </div>
+      <div class="row gy-4">
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="card-item">
+            <div class="row">
+              <div class="col-xl-5">
+                <div
+                  class="card-bg"
+                  style="
+                    background-image: url({% static 'img/constructions-1.jpg' %});
+                  "
+                ></div>
+              </div>
+              <div class="col-xl-7 d-flex align-items-center">
+                <div class="card-body">
+                  <h4 class="card-title">Листовая сталь</h4>
+                  <p>
+                    Горячекатаная и холоднокатаная листовая сталь различных
+                    марок и толщин, соответствующая ГОСТ 19903-2015, для
+                    строительства и машиностроения.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="card-item">
+            <div class="row">
+              <div class="col-xl-5">
+                <div
+                  class="card-bg"
+                  style="
+                    background-image: url({% static 'img/constructions-2.jpg' %});
+                  "
+                ></div>
+              </div>
+              <div class="col-xl-7 d-flex align-items-center">
+                <div class="card-body">
+                  <h4 class="card-title">Нержавеющая сталь</h4>
+                  <p>
+                    Высококачественные трубы, листы и профили из нержавеющей
+                    стали для применения в агрессивных средах.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="card-item">
+            <div class="row">
+              <div class="col-xl-5">
+                <div
+                  class="card-bg"
+                  style="
+                    background-image: url({% static 'img/constructions-3.jpg' %});
+                  "
+                ></div>
+              </div>
+              <div class="col-xl-7 d-flex align-items-center">
+                <div class="card-body">
+                  <h4 class="card-title">Алюминиевые сплавы</h4>
+                  <p>
+                    Легкие и прочные алюминиевые изделия для машиностроения,
+                    строительства и других отраслей.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+          <div class="card-item">
+            <div class="row">
+              <div class="col-xl-5">
+                <div
+                  class="card-bg"
+                  style="
+                    background-image: url({% static 'img/constructions-4.jpg' %});
+                  "
+                ></div>
+              </div>
+              <div class="col-xl-7 d-flex align-items-center">
+                <div class="card-body">
+                  <h4 class="card-title">Металлопрокат</h4>
+                  <p>
+                    Арматура, балки, швеллеры и уголки для строительных и
+                    промышленных проектов.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Constructions Section -->
+
+  <!-- ======= Services Section ======= -->
+  <section id="services" class="services section-bg">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header">
+        <h2>Услуги</h2>
+        <p>
+          Мы предоставляем дополнительные услуги для удобства наших клиентов в
+          работе с металлопродукцией.
+        </p>
+      </div>
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="service-item position-relative">
+            <div class="icon"><i class="fa-solid fa-mountain-city"></i></div>
+            <h3>Резка металла</h3>
+            <p>
+              Высокоточная резка металла по вашим чертежам с использованием
+              лазерных и плазменных технологий.
+            </p>
+            <a href="#" class="readmore stretched-link"
+              >Подробнее <i class="bi bi-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="service-item position-relative">
+            <div class="icon">
+              <i class="fa-solid fa-arrow-up-from-ground-water"></i>
+            </div>
+            <h3>Доставка по России</h3>
+            <p>
+              Быстрая и надежная доставка металлопродукции в любой регион России
+              благодаря сети складов.
+            </p>
+            <a href="#" class="readmore stretched-link"
+              >Подробнее <i class="bi bi-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="service-item position-relative">
+            <div class="icon"><i class="fa-solid fa-compass-drafting"></i></div>
+            <h3>Консультации по подбору</h3>
+            <p>
+              Наши специалисты помогут выбрать оптимальные материалы для ваших
+              проектов.
+            </p>
+            <a href="#" class="readmore stretched-link"
+              >Подробнее <i class="bi bi-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+          <div class="service-item position-relative">
+            <div class="icon"><i class="fa-solid fa-trowel-bricks"></i></div>
+            <h3>Контроль качества</h3>
+            <p>
+              Все наши продукты проходят строгий контроль качества и
+              сопровождаются сертификатами.
+            </p>
+            <a href="#" class="readmore stretched-link"
+              >Подробнее <i class="bi bi-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+          <div class="service-item position-relative">
+            <div class="icon"><i class="fa-solid fa-helmet-safety"></i></div>
+            <h3>Индивидуальная обработка</h3>
+            <p>
+              Изготовление металлоизделий по вашим спецификациям с
+              использованием современного оборудования.
+            </p>
+            <a href="#" class="readmore stretched-link"
+              >Подробнее <i class="bi bi-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+          <div class="service-item position-relative">
+            <div class="icon">
+              <i class="fa-solid fa-arrow-up-from-ground-water"></i>
+            </div>
+            <h3>Складское хранение</h3>
+            <p>
+              Предоставляем услуги хранения металлопродукции на наших складах
+              для удобства клиентов.
+            </p>
+            <a href="#" class="readmore stretched-link"
+              >Подробнее <i class="bi bi-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Services Section -->
+
+  <!-- ======= Alt Services Section ======= -->
+  <section id="alt-services" class="alt-services">
+    <div class="container" data-aos="fade-up">
+      <div class="row justify-content-around gy-4">
+        <div
+          class="col-lg-6 img-bg"
+          style="
+            background-image: url({% static 'img/alt-services.jpg' %});
+          "
+          data-aos="zoom-in"
+          data-aos-delay="100"
+        ></div>
+        <div class="col-lg-5 d-flex flex-column justify-content-center">
+          <h3>Наши преимущества</h3>
+          <p>
+            Почему клиенты выбирают «Сталькрафт» для поставок металлопродукции.
+          </p>
+          <div
+            class="icon-box d-flex position-relative"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <i class="bi bi-easel flex-shrink-0"></i>
+            <div>
+              <h4><a href="" class="stretched-link">Широкий ассортимент</a></h4>
+              <p>
+                Разнообразие металлопродукции, включая листовую сталь,
+                нержавеющую сталь и алюминиевые сплавы.
+              </p>
+            </div>
+          </div>
+          <div
+            class="icon-box d-flex position-relative"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <i class="bi bi-patch-check flex-shrink-0"></i>
+            <div>
+              <h4><a href="" class="stretched-link">Гарантия качества</a></h4>
+              <p>
+                Все продукты сертифицированы и соответствуют ГОСТ и
+                международным стандартам.
+              </p>
+            </div>
+          </div>
+          <div
+            class="icon-box d-flex position-relative"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <i class="bi bi-brightness-high flex-shrink-0"></i>
+            <div>
+              <h4><a href="" class="stretched-link">Быстрая доставка</a></h4>
+              <p>
+                Оперативная логистика по всей России благодаря сети складов в
+                ключевых регионах.
+              </p>
+            </div>
+          </div>
+          <div
+            class="icon-box d-flex position-relative"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <i class="bi bi-brightness-high flex-shrink-0"></i>
+            <div>
+              <h4>
+                <a href="" class="stretched-link">Индивидуальный подход</a>
+              </h4>
+              <p>
+                Персонализированные решения, консультации и гибкие условия для
+                каждого клиента.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Alt Services Section -->
+
+  <!-- ======= Features Section ======= -->
+  <section id="features" class="features section-bg">
+    <div class="container" data-aos="fade-up">
+      <ul class="nav nav-tabs row g-2 d-flex">
+        <li class="nav-item col-3">
+          <a
+            class="nav-link active show"
+            data-bs-toggle="tab"
+            data-bs-target="#tab-1"
+            ><h4>Ассортимент</h4></a
+          >
+        </li>
+        <li class="nav-item col-3">
+          <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-2"
+            ><h4>Доставка</h4></a
+          >
+        </li>
+        <li class="nav-item col-3">
+          <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-3"
+            ><h4>Качество</h4></a
+          >
+        </li>
+        <li class="nav-item col-3">
+          <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-4"
+            ><h4>Сервис</h4></a
+          >
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active show" id="tab-1">
+          <div class="row">
+            <div
+              class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <h3>Широкий ассортимент металлопродукции</h3>
+              <p class="fst-italic">
+                Мы предлагаем разнообразные виды металлопроката для любых задач.
+              </p>
+              <ul>
+                <li>
+                  <i class="bi bi-check2-all"></i> Листовая сталь всех марок и
+                  размеров.
+                </li>
+                <li>
+                  <i class="bi bi-check2-all"></i> Нержавеющая сталь для
+                  агрессивных сред.
+                </li>
+                <li>
+                  <i class="bi bi-check2-all"></i> Алюминиевые сплавы для легких
+                  конструкций.
+                </li>
+              </ul>
+            </div>
+            <div
+              class="col-lg-6 order-1 order-lg-2 text-center"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <img
+                src="{% static 'img/features-1.jpg' %}"
+                alt=""
+                class="img-fluid"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="tab-2">
+          <div class="row">
+            <div
+              class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center"
+            >
+              <h3>Оперативная доставка по России</h3>
+              <p class="fst-italic">
+                Мы обеспечиваем быструю доставку в любой регион России.
+              </p>
+              <ul>
+                <li>
+                  <i class="bi bi-check2-all"></i> Склады в Москве,
+                  Санкт-Петербурге и Екатеринбурге.
+                </li>
+                <li>
+                  <i class="bi bi-check2-all"></i> Доставка в отдаленные
+                  регионы.
+                </li>
+                <li>
+                  <i class="bi bi-check2-all"></i> Собственный транспортный
+                  парк.
+                </li>
+                <li>
+                  <i class="bi bi-check2-all"></i> Гибкие логистические решения.
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-6 order-1 order-lg-2 text-center">
+              <img
+                src="{% static 'img/features-2.jpg' %}"
+                alt=""
+                class="img-fluid"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="tab-3">
+          <div class="row">
+            <div
+              class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center"
+            >
+              <h3>Гарантия качества продукции</h3>
+              <ul>
+                <li>
+                  <i class="bi bi-check2-all"></i> Сертификаты качества на
+                  каждую партию.
+                </li>
+                <li>
+                  <i class="bi bi-check2-all"></i> Контроль на всех этапах
+                  производства.
+                </li>
+                <li>
+                  <i class="bi bi-check2-all"></i> Соответствие ГОСТ и
+                  международным стандартам.
+                </li>
+              </ul>
+              <p class="fst-italic">
+                Все наши материалы проходят строгий контроль качества.
+              </p>
+            </div>
+            <div class="col-lg-6 order-1 order-lg-2 text-center">
+              <img
+                src="{% static 'img/features-3.jpg' %}"
+                alt=""
+                class="img-fluid"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="tab-4">
+          <div class="row">
+            <div
+              class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center"
+            >
+              <h3>Индивидуальный сервис</h3>
+              <p class="fst-italic">
+                Мы предлагаем персонализированные решения для каждого клиента.
+              </p>
+              <ul>
+                <li>
+                  <i class="bi bi-check2-all"></i> Консультации по подбору
+                  материалов.
+                </li>
+                <li><i class="bi bi-check2-all"></i> Гибкие условия оплаты.</li>
+                <li>
+                  <i class="bi bi-check2-all"></i> Изготовление по вашим
+                  чертежам.
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-6 order-1 order-lg-2 text-center">
+              <img
+                src="{% static 'img/features-4.jpg' %}"
+                alt=""
+                class="img-fluid"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Features Section -->
+
+  <!-- ======= Our Projects Section ======= -->
+  <section id="projects" class="projects">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header">
+        <h2>Наши проекты</h2>
+        <p>
+          Мы гордимся участием в крупных промышленных и строительных проектах по
+          всей России.
+        </p>
+      </div>
+      <div
+        class="portfolio-isotope"
+        data-portfolio-filter="*"
+        data-portfolio-layout="masonry"
+        data-portfolio-sort="original-order"
+      >
+        <ul class="portfolio-flters" data-aos="fade-up" data-aos-delay="100">
+          <li data-filter="*" class="filter-active">Все</li>
+          <li data-filter=".filter-industrial">Промышленность</li>
+          <li data-filter=".filter-construction">Строительство</li>
+          <li data-filter=".filter-energy">Энергетика</li>
+          <li data-filter=".filter-infrastructure">Инфраструктура</li>
+        </ul>
+        <div
+          class="row gy-4 portfolio-container"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <div class="col-lg-4 col-md-6 portfolio-item filter-industrial">
+            <div class="portfolio-content h-100">
+              <img
+                src="{% static 'img/projects/remodeling-1.jpg' %}"
+                class="img-fluid"
+                alt=""
+              />
+              <div class="portfolio-info">
+                <h4>Промышленный комплекс, Урал</h4>
+                <p>Поставка листовой стали для машиностроительного завода</p>
+                <a
+                  href="{% static 'img/projects/remodeling-1.jpg' %}"
+                  title="Промышленный комплекс, Урал"
+                  data-gallery="portfolio-gallery-industrial"
+                  class="glightbox preview-link"
+                  ><i class="bi bi-zoom-in"></i
+                ></a>
+                <a href="#" title="Подробнее" class="details-link"
+                  ><i class="bi bi-link-45deg"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-construction">
+            <div class="portfolio-content h-100">
+              <img
+                src="{% static 'img/projects/construction-1.jpg' %}"
+                class="img-fluid"
+                alt=""
+              />
+              <div class="portfolio-info">
+                <h4>Мост, Сибирь</h4>
+                <p>Обеспечение металлопрокатом для строительства моста</p>
+                <a
+                  href="{% static 'img/projects/construction-1.jpg' %}"
+                  title="Мост, Сибирь"
+                  data-gallery="portfolio-gallery-construction"
+                  class="glightbox preview-link"
+                  ><i class="bi bi-zoom-in"></i
+                ></a>
+                <a href="#" title="Подробнее" class="details-link"
+                  ><i class="bi bi-link-45deg"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-energy">
+            <div class="portfolio-content h-100">
+              <img
+                src="{% static 'img/projects/repairs-1.jpg' %}"
+                class="img-fluid"
+                alt=""
+              />
+              <div class="portfolio-info">
+                <h4>Электростанция, Дальний Восток</h4>
+                <p>Поставка нержавеющей стали для энергетического объекта</p>
+                <a
+                  href="{% static 'img/projects/repairs-1.jpg' %}"
+                  title="Электростанция, Дальний Восток"
+                  data-gallery="portfolio-gallery-energy"
+                  class="glightbox preview-link"
+                  ><i class="bi bi-zoom-in"></i
+                ></a>
+                <a href="#" title="Подробнее" class="details-link"
+                  ><i class="bi bi-link-45deg"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-infrastructure">
+            <div class="portfolio-content h-100">
+              <img
+                src="{% static 'img/projects/design-1.jpg' %}"
+                class="img-fluid"
+                alt=""
+              />
+              <div class="portfolio-info">
+                <h4>Железнодорожная инфраструктура</h4>
+                <p>Поставка рельсов и металлоконструкций</p>
+                <a
+                  href="{% static 'img/projects/design-1.jpg' %}"
+                  title="Железнодорожная инфраструктура"
+                  data-gallery="portfolio-gallery-infrastructure"
+                  class="glightbox preview-link"
+                  ><i class="bi bi-zoom-in"></i
+                ></a>
+                <a href="#" title="Подробнее" class="details-link"
+                  ><i class="bi bi-link-45deg"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-industrial">
+            <div class="portfolio-content h-100">
+              <img
+                src="{% static 'img/projects/remodeling-2.jpg' %}"
+                class="img-fluid"
+                alt=""
+              />
+              <div class="portfolio-info">
+                <h4>Завод, Центральная Россия</h4>
+                <p>Поставка алюминиевых сплавов для производственных линий</p>
+                <a
+                  href="{% static 'img/projects/remodeling-2.jpg' %}"
+                  title="Завод, Центральная Россия"
+                  data-gallery="portfolio-gallery-industrial"
+                  class="glightbox preview-link"
+                  ><i class="bi bi-zoom-in"></i
+                ></a>
+                <a href="#" title="Подробнее" class="details-link"
+                  ><i class="bi bi-link-45deg"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-construction">
+            <div class="portfolio-content h-100">
+              <img
+                src="{% static 'img/projects/construction-2.jpg' %}"
+                class="img-fluid"
+                alt=""
+              />
+              <div class="portfolio-info">
+                <h4>Складской комплекс, Юг России</h4>
+                <p>Поставка арматуры и швеллеров для строительства</p>
+                <a
+                  href="{% static 'img/projects/construction-2.jpg' %}"
+                  title="Складской комплекс, Юг России"
+                  data-gallery="portfolio-gallery-construction"
+                  class="glightbox preview-link"
+                  ><i class="bi bi-zoom-in"></i
+                ></a>
+                <a href="#" title="Подробнее" class="details-link"
+                  ><i class="bi bi-link-45deg"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-energy">
+            <div class="portfolio-content h-100">
+              <img
+                src="{% static 'img/projects/repairs-2.jpg' %}"
+                class="img-fluid"
+                alt=""
+              />
+              <div class="portfolio-info">
+                <h4>Нефтегазовый объект, Западная Сибирь</h4>
+                <p>Поставка нержавеющей стали для трубопроводов</p>
+                <a
+                  href="{% static 'img/projects/repairs-2.jpg' %}"
+                  title="Нефтегазовый объект, Западная Сибирь"
+                  data-gallery="portfolio-gallery-energy"
+                  class="glightbox preview-link"
+                  ><i class="bi bi-zoom-in"></i
+                ></a>
+                <a href="#" title="Подробнее" class="details-link"
+                  ><i class="bi bi-link-45deg"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-infrastructure">
+            <div class="portfolio-content h-100">
+              <img
+                src="{% static 'img/projects/design-2.jpg' %}"
+                class="img-fluid"
+                alt=""
+              />
+              <div class="portfolio-info">
+                <h4>Портовая инфраструктура, Черное море</h4>
+                <p>Поставка металлоконструкций для портовых сооружений</p>
+                <a
+                  href="{% static 'img/projects/design-2.jpg' %}"
+                  title="Портовая инфраструктура, Черное море"
+                  data-gallery="portfolio-gallery-infrastructure"
+                  class="glightbox preview-link"
+                  ><i class="bi bi-zoom-in"></i
+                ></a>
+                <a href="#" title="Подробнее" class="details-link"
+                  ><i class="bi bi-link-45deg"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-industrial">
+            <div class="portfolio-content h-100">
+              <img
+                src="{% static 'img/projects/remodeling-3.jpg' %}"
+                class="img-fluid"
+                alt=""
+              />
+              <div class="portfolio-info">
+                <h4>Металлургический завод, Поволжье</h4>
+                <p>Поставка листовой стали для производственных нужд</p>
+                <a
+                  href="{% static 'img/projects/remodeling-3.jpg' %}"
+                  title="Металлургический завод, Поволжье"
+                  data-gallery="portfolio-gallery-industrial"
+                  class="glightbox preview-link"
+                  ><i class="bi bi-zoom-in"></i
+                ></a>
+                <a href="#" title="Подробнее" class="details-link"
+                  ><i class="bi bi-link-45deg"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-construction">
+            <div class="portfolio-content h-100">
+              <img
+                src="{% static 'img/projects/construction-3.jpg' %}"
+                class="img-fluid"
+                alt=""
+              />
+              <div class="portfolio-info">
+                <h4>Жилой комплекс, Москва</h4>
+                <p>Поставка арматуры для строительства жилого комплекса</p>
+                <a
+                  href="{% static 'img/projects/construction-3.jpg' %}"
+                  title="Жилой комплекс, Москва"
+                  data-gallery="portfolio-gallery-construction"
+                  class="glightbox preview-link"
+                  ><i class="bi bi-zoom-in"></i
+                ></a>
+                <a href="#" title="Подробнее" class="details-link"
+                  ><i class="bi bi-link-45deg"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-energy">
+            <div class="portfolio-content h-100">
+              <img
+                src="{% static 'img/projects/repairs-3.jpg' %}"
+                class="img-fluid"
+                alt=""
+              />
+              <div class="portfolio-info">
+                <h4>Ветроэлектростанция, Юг России</h4>
+                <p>Поставка алюминиевых сплавов для энергетического проекта</p>
+                <a
+                  href="{% static 'img/projects/repairs-3.jpg' %}"
+                  title="Ветроэлектростанция, Юг России"
+                  data-gallery="portfolio-gallery-energy"
+                  class="glightbox preview-link"
+                  ><i class="bi bi-zoom-in"></i
+                ></a>
+                <a href="#" title="Подробнее" class="details-link"
+                  ><i class="bi bi-link-45deg"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-infrastructure">
+            <div class="portfolio-content h-100">
+              <img
+                src="{% static 'img/projects/design-3.jpg' %}"
+                class="img-fluid"
+                alt=""
+              />
+              <div class="portfolio-info">
+                <h4>Автомобильный мост, Урал</h4>
+                <p>Поставка металлопроката для мостостроения</p>
+                <a
+                  href="{% static 'img/projects/design-3.jpg' %}"
+                  title="Автомобильный мост, Урал"
+                  data-gallery="portfolio-gallery-infrastructure"
+                  class="glightbox preview-link"
+                  ><i class="bi bi-zoom-in"></i
+                ></a>
+                <a href="#" title="Подробнее" class="details-link"
+                  ><i class="bi bi-link-45deg"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Our Projects Section -->
+
+  <!-- ======= Testimonials Section ======= -->
+  <section id="testimonials" class="testimonials section-bg">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header">
+        <h2>Отзывы клиентов</h2>
+        <p>
+          Наши клиенты ценят качество нашей продукции и профессиональный сервис.
+        </p>
+      </div>
+      <div class="slides-2 swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="testimonial-wrap">
+              <div class="testimonial-item">
+                <img
+                  src="{% static 'img/testimonials/testimonials-1.jpg' %}"
+                  class="testimonial-img"
+                  alt=""
+                />
+                <h3>Иван Петров</h3>
+                <h4>Директор, ООО «Промстрой»</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                  ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                  ><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  «Сталькрафт» — надежный партнер. Поставки всегда вовремя, а
+                  качество металла на высоте.
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-wrap">
+              <div class="testimonial-item">
+                <img
+                  src="{% static 'img/testimonials/testimonials-2.jpg' %}"
+                  class="testimonial-img"
+                  alt=""
+                />
+                <h3>Елена Смирнова</h3>
+                <h4>Руководитель проектов, ЗАО «Металлург»</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                  ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                  ><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  Благодаря оперативной доставке и профессиональной поддержке мы
+                  завершили проект раньше срока.
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-wrap">
+              <div class="testimonial-item">
+                <img
+                  src="{% static 'img/testimonials/testimonials-3.jpg' %}"
+                  class="testimonial-img"
+                  alt=""
+                />
+                <h3>Алексей Иванов</h3>
+                <h4>Главный инженер, ООО «Энергия»</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                  ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                  ><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  Качество нержавеющей стали и консультации специалистов помогли
+                  нам выбрать идеальные материалы.
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-wrap">
+              <div class="testimonial-item">
+                <img
+                  src="{% static 'img/testimonials/testimonials-4.jpg' %}"
+                  class="testimonial-img"
+                  alt=""
+                />
+                <h3>Михаил Соколов</h3>
+                <h4>Директор, ООО «Инфраструктура»</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                  ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                  ><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  Сотрудничество с «Сталькрафт» позволило нам оперативно
+                  получить металлопрокат для крупного проекта.
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-wrap">
+              <div class="testimonial-item">
+                <img
+                  src="{% static 'img/testimonials/testimonials-5.jpg' %}"
+                  class="testimonial-img"
+                  alt=""
+                />
+                <h3>Ольга Кузнецова</h3>
+                <h4>Менеджер по закупкам, ООО «Стройтех»</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                  ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                  ><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  Гибкие условия и высокое качество продукции делают
+                  «Сталькрафт» нашим основным поставщиком.
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </section>
+  <!-- End Testimonials Section -->
+
+  <!-- ======= Recent Blog Posts Section ======= -->
+  <section id="recent-blog-posts" class="recent-blog-posts">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header">
+        <h2>Последние новости</h2>
+        <p>Следите за новостями и обновлениями в сфере металлопродукции.</p>
+      </div>
+      <div class="row gy-5">
+        <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="post-item position-relative h-100">
+            <div class="post-img position-relative overflow-hidden">
+              <img
+                src="{% static 'img/blog/blog-1.jpg' %}"
+                class="img-fluid"
+                alt=""
+              />
+              <span class="post-date">15 октября</span>
+            </div>
+            <div class="post-content d-flex flex-column">
+              <h3 class="post-title">
+                Расширение ассортимента нержавеющей стали
+              </h3>
+              <div class="meta d-flex align-items-center">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-person"></i>
+                  <span class="ps-2">Анна Коваленко</span>
+                </div>
+                <span class="px-3 text-black-50">/</span>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-folder2"></i>
+                  <span class="ps-2">Металлургия</span>
+                </div>
+              </div>
+              <hr />
+              <a href="#" class="readmore stretched-link"
+                ><span>Читать далее</span><i class="bi bi-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="post-item position-relative h-100">
+            <div class="post-img position-relative overflow-hidden">
+              <img
+                src="{% static 'img/blog/blog-2.jpg' %}"
+                class="img-fluid"
+                alt=""
+              />
+              <span class="post-date">20 сентября</span>
+            </div>
+            <div class="post-content d-flex flex-column">
+              <h3 class="post-title">Новые технологии резки металла</h3>
+              <div class="meta d-flex align-items-center">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-person"></i>
+                  <span class="ps-2">Сергей Волков</span>
+                </div>
+                <span class="px-3 text-black-50">/</span>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-folder2"></i>
+                  <span class="ps-2">Технологии</span>
+                </div>
+              </div>
+              <hr />
+              <a href="#" class="readmore stretched-link"
+                ><span>Читать далее</span><i class="bi bi-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="post-item position-relative h-100">
+            <div class="post-img position-relative overflow-hidden">
+              <img
+                src="{% static 'img/blog/blog-3.jpg' %}"
+                class="img-fluid"
+                alt=""
+              />
+              <span class="post-date">5 августа</span>
+            </div>
+            <div class="post-content d-flex flex-column">
+              <h3 class="post-title">Логистика металлопродукции</h3>
+              <div class="meta d-flex align-items-center">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-person"></i>
+                  <span class="ps-2">Мария Сидорова</span>
+                </div>
+                <span class="px-3 text-black-50">/</span>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-folder2"></i>
+                  <span class="ps-2">Логистика</span>
+                </div>
+              </div>
+              <hr />
+              <a href="#" class="readmore stretched-link"
+                ><span>Читать далее</span><i class="bi bi-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Recent Blog Posts Section -->
+</main>
+{% endblock %}
