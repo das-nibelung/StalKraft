@@ -1,0 +1,143 @@
+/* ====== Общие переменные ====== */
+:root {
+  --offcanvas-w: min(420px, 85vw); /* ширина правой панели */
+}
+
+/* ====== Хедер: прозрачен у верха, плотный после скролла ====== */
+.nav-open #header {
+  background: rgba(11, 34, 56, 0.95);
+}
+
+/* ====== Шторка ====== */
+.site-backdrop {
+  position: fixed;
+  inset: 0; /* по умолчанию на весь экран */
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1300; /* выше хедера, ниже панели */
+  transition: opacity 0.2s ease;
+}
+.nav-open .site-backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ====== Мобильный режим (включается классом .mobile-mode на <body>) ====== */
+.mobile-mode .navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: var(--offcanvas-w);
+  height: 100vh; /* fallback */
+  height: 100dvh; /* современный вьюпорт */
+  max-height: 100dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
+  background: #0b2238;
+  color: #fff;
+  transform: translateX(100%); /* прячем за правый край */
+  transition: transform 0.25s ease;
+  z-index: 1400;
+  padding: 16px;
+}
+.mobile-mode .navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mobile-mode .navbar li {
+  padding: 8px 0;
+}
+.mobile-mode .navbar a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+.mobile-mode .navbar .dropdown > ul {
+  margin-left: 14px;
+}
+
+/* Открытое состояние: панель на экране, шторка покрывает область слева от панели */
+.mobile-mode.nav-open .navbar {
+  transform: translateX(0);
+}
+.mobile-mode.nav-open .site-backdrop {
+  left: 0;
+  right: var(--offcanvas-w); /* заканчиваемся у левого края панели */
+}
+
+/* Крестик «слева от панели», поверх шторки */
+.mobile-mode .mobile-nav-hide {
+  position: fixed;
+  top: 14px;
+  right: calc(var(--offcanvas-w) + 14px);
+  z-index: 1500;
+  display: none !important;
+  cursor: pointer;
+}
+.mobile-mode.nav-open .mobile-nav-hide {
+  display: inline-block !important;
+}
+.mobile-mode.nav-open .mobile-nav-show {
+  display: none !important;
+}
+
+/* При открытом меню блокируем прокрутку фона */
+html.nav-open,
+body.nav-open {
+  overflow: hidden;
+  height: 100%;
+  overscroll-behavior: none;
+  /* на случай странных эффектов у предков */
+  transform: none;
+  filter: none;
+}
+
+/* ====== Десктоп (ничего не ломаем) ====== */
+@media (min-width: 1200px) {
+  .navbar {
+    position: static;
+    transform: none;
+    width: auto;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    z-index: auto;
+  }
+  .site-backdrop {
+    display: none;
+  }
+  .mobile-nav-hide {
+    display: none !important;
+  }
+}
+
+/* ====== Карточки услуг: кружки не меняют цвет на hover ====== */
+/* Если круг рисуется псевдо-элементами */
+.services .service-item .icon::before,
+.services .service-item:hover .icon::before,
+.services .service-item .icon::after,
+.services .service-item:hover .icon::after {
+  background: rgba(52, 73, 94, 1) !important;
+}
+
+/* (опционально) Если фон круга у самой .icon — раскомментируй:
+.services .service-item .icon,
+.services .service-item:hover .icon{
+  background: rgba(52, 73, 94, 1) !important;
+  transition: none;
+}
+*/
+
+/* (опционально) Если круг — это <svg><circle> — раскомментируй:
+.services .service-item .icon svg circle,
+.services .service-item:hover .icon svg circle{
+  fill: rgba(52, 73, 94, 1) !important;
+}
+*/

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+{{ service.title }}
+{% endblock title %}
+{% block content %}
+    <div class="breadcrumbs d-flex align-items-center"
+         style="background-image: url({% static&quot;
+                img/breadcrumbs-bg.jpg&quot;
+                %})">
+        <div class="container position-relative d-flex flex-column align-items-center"
+             data-aos="fade">
+            <h2>{{ service.title }}</h2>
+            <ol>
+                <li>
+                    <a href="{% url 'home' %}">Главная</a>
+                </li>
+                <li>
+                    <a href="{% url 'services:list' %}">Услуги</a>
+                </li>
+                <li>{{ service.title }}</li>
+            </ol>
+        </div>
+    </div>
+    {# End Breadcrumbs #}
+    <section class="section-bg py-5">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-8">
+                    {% if service.image %}
+                        <img src="{{ service.image.url }}"
+                             class="img-fluid rounded-3 mb-4"
+                             alt="{{ service.title }}" />
+                    {% endif %}
+                    {% if service.content %}
+                        <article class="content">{{ service.content|linebreaks }}</article>
+                    {% else %}
+                        <p>Описание готовится.</p>
+                    {% endif %}
+                </div>
+                <div class="col-lg-4">
+                    <div class="p-4 border rounded-3 h-100">
+                        <div class="icon fs-1 mb-3">
+                            <i class="{{ service.icon_class }}"></i>
+                        </div>
+                        <p class="mb-0">{{ service.excerpt }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

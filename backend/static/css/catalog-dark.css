@@ -1,0 +1,59 @@
+/* ===========================
+   Catalog — dark overrides
+   (загружать после catalog.css)
+   =========================== */
+
+@media (prefers-color-scheme: dark) {
+  #categories .card-item,
+  #filters,
+  .products .product-card {
+    background: #151922;
+    border: var(--sk-border);
+  }
+
+  #categories .embed-responsive,
+  .products .ratio {
+    background: #0f131b;
+  }
+
+  .section-header p {
+    color: var(--sk-muted);
+  }
+
+  .breadcrumbs::before {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.45),
+      rgba(0, 0, 0, 0.6)
+    );
+  }
+
+  .pagination .page-link {
+    background: #151922;
+    color: #dee2e6;
+  }
+  .pagination .page-item.active .page-link {
+    background: #0d6efd;
+    color: #fff;
+  }
+
+  /* Inputs */
+  #filters .form-control,
+  #filters .form-select {
+    background: #0f131b;
+    color: #e9ecef;
+    border: var(--sk-border);
+  }
+  #filters .btn-primary {
+    box-shadow: none;
+  }
+
+  .badge.bg-secondary-subtle {
+    color: #cfd3d8 !important;
+  }
+}
+
+/* Дополнительно: если хочешь принудительную тёмную тему без prefers-color-scheme,
+   можно навесить класс .theme-dark на <body> и продублировать селекторы,
+   например:
+   .theme-dark .products .product-card { background:#151922; } */

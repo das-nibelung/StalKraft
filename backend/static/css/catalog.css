@@ -1,0 +1,227 @@
+/* ===========================
+   Catalog — base styles
+   =========================== */
+
+:root {
+  --sk-card-radius: 16px;
+  --sk-card-radius-lg: 18px;
+  --sk-gap: 1rem;
+  --sk-border: 1px solid rgba(0, 0, 0, 0.08);
+  --sk-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --sk-shadow-hover: 0 10px 28px rgba(0, 0, 0, 0.12);
+  --sk-muted: #6c757d;
+  --sk-success: #198754;
+  --sk-secondary: #6c757d;
+  --sk-success-bg-subtle: #d1f2e0;
+  --sk-secondary-bg-subtle: #e8eaed;
+  --sk-overlay: rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Breadcrumbs minor tune ---------- */
+.breadcrumbs {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.breadcrumbs::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.35));
+}
+.breadcrumbs .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===========================
+   Categories grid (верхняя секция)
+   =========================== */
+#categories .card-item {
+  border-radius: var(--sk-card-radius-lg);
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--sk-shadow);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+#categories .card-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sk-shadow-hover);
+}
+
+#categories .embed-responsive {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--sk-card-radius-lg);
+  background: #f7f7f9;
+  min-height: 220px;
+}
+
+#categories .card-item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.01);
+  transition: transform 0.35s ease;
+}
+#categories .embed-responsive:hover img {
+  transform: scale(1.06);
+}
+
+#categories .card-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0.65rem 1rem;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.55));
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+#categories .card-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+  color: #fff;
+  background: var(--sk-overlay);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  font-size: 0.95rem;
+}
+#categories .embed-responsive:hover .card-overlay {
+  opacity: 1;
+}
+
+/* ===========================
+   Filters (sidebar)
+   =========================== */
+#filters {
+  border: var(--sk-border);
+  border-radius: var(--sk-card-radius);
+  box-shadow: var(--sk-shadow);
+  background: #fff;
+  position: sticky;
+  top: calc(var(--header-height, 80px) + 16px);
+  z-index: 2;
+}
+@media (max-width: 991.98px) {
+  #filters {
+    position: static;
+    top: auto;
+  }
+}
+#filters .form-label {
+  font-weight: 600;
+}
+#filters .vstack label {
+  cursor: pointer;
+  user-select: none;
+}
+#filters input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
+/* ===========================
+   Products grid / cards
+   =========================== */
+.products .product-card {
+  border: var(--sk-border);
+  border-radius: var(--sk-card-radius);
+  overflow: hidden;
+  background: #fff;
+  height: 100%;
+  box-shadow: var(--sk-shadow);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.products .product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sk-shadow-hover);
+}
+
+.products .ratio {
+  display: block;
+  border-bottom: var(--sk-border);
+  background: #f7f7f9;
+}
+
+/* utility if Bootstrap’s .object-fit-cover not present */
+.object-fit-cover {
+  object-fit: cover;
+}
+
+/* Titles & meta */
+.products .product-card h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+.products .product-card h3 a:hover {
+  text-decoration: underline;
+}
+.products .product-card ul {
+  margin: 0 0 0.5rem 0;
+  line-height: 1.35;
+}
+
+/* Price & badges */
+.h5.mb-0 + .small {
+  color: var(--sk-muted);
+}
+.badge {
+  border-radius: 999px;
+  padding: 0.35rem 0.6rem;
+  font-weight: 600;
+}
+
+.bg-success-subtle {
+  background: var(--sk-success-bg-subtle) !important;
+}
+.bg-secondary-subtle {
+  background: var(--sk-secondary-bg-subtle) !important;
+}
+.text-success {
+  color: var(--sk-success) !important;
+}
+.text-secondary {
+  color: var(--sk-secondary) !important;
+}
+
+/* Add-to-cart button alignment on narrow cards */
+.products .product-card .btn {
+  white-space: nowrap;
+}
+
+/* ===========================
+   Pagination
+   =========================== */
+.pagination .page-link {
+  border-radius: 10px;
+  margin: 0 0.2rem;
+  border: var(--sk-border);
+}
+.pagination .page-item.active .page-link {
+  background: #0d6efd;
+  border-color: #0d6efd;
+}
+.pagination .page-link:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* ===========================
+   Minor helpers
+   =========================== */
+.section-header p {
+  color: var(--sk-muted);
+}

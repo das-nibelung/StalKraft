@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Услуги
+{% endblock title %}
+{% block content %}
+    <!-- Breadcrumbs как в каталоге -->
+				    <div class="breadcrumbs d-flex align-items-center"
+         style="background-image: url({% static 'img/breadcrumbs-bg.jpg' %})">
+        <div class="container position-relative d-flex flex-column align-items-center"
+             data-aos="fade">
+            <h2>
+                {% if category %}
+                    {{ services.name }}
+                {% else %}
+                    Каталог
+                {% endif %}
+            </h2>
+            <ol>
+                <li>
+                    <a href="{% url 'home' %}">Главная</a>
+                </li>
+                {% if category %}
+                    <li>
+                        <a href="{% url 'services:list' %}">Каталог</a>
+                    </li>
+                    <li>{{ services.name }}</li>
+                {% else %}
+                    <li>Услуги</li>
+                {% endif %}
+            </ol>
+        </div>
+    </div>
+    <!-- Services Grid -->
+    <section id="services" class="section-bg py-5">
+        <div class="container">
+            <div class="row gy-4">
+                {% for s in services %}
+                    <div class="col-lg-4 col-md-6"
+                         data-aos="fade-up"
+                         data-aos-delay="{{ forloop.counter0|add:1 }}00">
+                        <div class="service-item position-relative h-100 p-4 border rounded-3">
+                            <div class="icon fs-1 mb-3">
+                                <i class="{{ s.icon_class }}"></i>
+                            </div>
+                            <h3 class="h5">{{ s.title }}</h3>
+                            {% if s.excerpt %}<p class="mb-3">{{ s.excerpt }}</p>{% endif %}
+                            <a href="{{ s.get_absolute_url }}" class="stretched-link">Подробнее</a>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <p>Раздел в разработке.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- Alt Services -->
+    {% for b in alt_blocks %}
+        <section class="alt-services section py-5">
+            <div class="container">
+                <div class="row justify-content-between align-items-center gy-4">
+                    <div class="col-lg-6 {% if forloop.counter|divisibleby:2 %}order-lg-2{% endif %}">
+                        {% if b.image %}
+                            <img src="{{ b.image.url }}"
+                                 class="img-fluid rounded-3"
+                                 alt="{{ b.title }}" />
+                        {% else %}
+                            <div class="ratio ratio-16x9 bg-body-tertiary rounded-3"></div>
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-5">
+                        <h3 class="h4 mb-3">{{ b.title }}</h3>
+                        <p class="mb-3">{{ b.text }}</p>
+                        {% if b.bullets %}
+                            <ul class="list-unstyled">
+                                {% for item in b.bullets %}
+                                    <li class="d-flex gap-2 mb-2">
+                                        <i class="bi bi-check-circle mt-1"></i>
+                                        <span>{{ item }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endfor %}
+    <!-- Testimonials -->
+    {% if testimonials %}
+        <section id="testimonials" class="testimonials section py-5">
+            <div class="container">
+                <div class="row gy-4">
+                    {% for t in testimonials %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="testimonial-item h-100 p-4 border rounded-3">
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    {% if t.avatar %}
+                                        <img src="{{ t.avatar.url }}"
+                                             class="rounded-circle"
+                                             width="56"
+                                             height="56"
+                                             alt="{{ t.name }}" />
+                                    {% else %}
+                                        <div class="rounded-circle bg-body-tertiary"
+                                             style="width: 56px;
+                                                    height: 56px"></div>
+                                    {% endif %}
+                                    <div>
+                                        <h4 class="h6 mb-0">{{ t.name }}</h4>
+                                        {% if t.role %}<small class="text-body-secondary">{{ t.role }}</small>{% endif %}
+                                    </div>
+                                </div>
+                                <p class="mb-0">“{{ t.text }}”</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}

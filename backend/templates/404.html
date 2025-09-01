@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}404 — Страница не найдена{% endblock %}
+
+{% block content %}
+  <!-- ======= Breadcrumbs ======= -->
+  <div class="breadcrumbs d-flex align-items-center"
+       style="background-image: url({% static 'img/breadcrumbs-bg.jpg' %});">
+    <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
+      <h2>404</h2>
+      <ol>
+        <li><a href="{% url 'home' %}">Главная</a></li>
+        <li>Страница не найдена</li>
+      </ol>
+    </div>
+  </div>
+  <!-- End Breadcrumbs -->
+
+  <!-- ======= 404 Section ======= -->
+  <section class="error-404 py-5">
+    <div class="container text-center" data-aos="fade-up">
+      <h1 class="display-1 fw-bold mb-3" style="letter-spacing: .05em;">404</h1>
+      <p class="lead mb-4">Упс! Такой страницы не существует или она была перемещена.</p>
+
+      <div class="d-flex gap-2 justify-content-center flex-wrap mb-4">
+        <a href="{% url 'home' %}" class="btn btn-primary px-4">На главную</a>
+        {% url 'catalog' as catalog_url %}
+        {% if catalog_url %}
+          <a href="{{ catalog_url }}" class="btn btn-outline-light px-4">Каталог</a>
+        {% endif %}
+      </div>
+
+      <img src="{% static 'img/404-dark.svg' %}" alt="Not Found" class="img-fluid" style="max-width:460px;">
+    </div>
+  </section>
+
+  <style>
+    /* Небольшая подсветка под тёмную тему */
+    .error-404 h1 { text-shadow: 0 0 24px rgba(0, 153, 255, .25); }
+    .error-404 .btn { border-radius: 9999px; }
+  </style>
+{% endblock %}
+

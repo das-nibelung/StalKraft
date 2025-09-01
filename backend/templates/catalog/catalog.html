@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Сталькрафт - Каталог{% endblock %}
+{% block content %}
+    {# Плейсхолдеры изображений #}
+    {% static 'img/placeholder-product.png' as PRODUCT_PLACEHOLDER %}
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs d-flex align-items-center"
+         style="background-image: url({% static 'img/breadcrumbs-bg.jpg' %})">
+        <div class="container position-relative d-flex flex-column align-items-center"
+             data-aos="fade">
+            <h2>
+                {% if category %}
+                    {{ category.name }}
+                {% else %}
+                    Каталог
+                {% endif %}
+            </h2>
+            <ol>
+                <li>
+                    <a href="{% url 'home' %}">Главная</a>
+                </li>
+                {% if category %}
+                    <li>
+                        <a href="{% url 'catalog:list' %}">Каталог</a>
+                    </li>
+                    <li>{{ category.name }}</li>
+                {% else %}
+                    <li>Каталог</li>
+                {% endif %}
+            </ol>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+    <!-- ======= Categories Section ======= -->
+    <section id="categories" class="section-bg">
+        <div class="container" data-aos="fade-up">
+            <div class="section-header">
+                <h2>Категории продукции</h2>
+                <p>Изучите наш широкий ассортимент металлопроката и сплавов.</p>
+            </div>
+            <div class="row gy-4">
+                {% for category in categories %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card-item">
+                            <div class="embed-responsive embed-responsive-4by3">
+                                <a href="{{ category.get_absolute_url|default:'#' }}" class="d-block">
+                                    <img src="{% if category.image %}{{ category.image.url }}{% else %}{{ PRODUCT_PLACEHOLDER }}{% endif %}"
+                                         class="embed-responsive-item img-fluid"
+                                         alt="{{ category.name }}">
+                                </a>
+                                <div class="card-title">{{ category.name }}</div>
+                                <div class="card-overlay">
+                                    <p>{{ category.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-secondary">Категорий пока нет.</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- End Categories Section -->
+    <!-- ======= Products (“Позиции”) ======= -->
+    <section id="products" class="products py-5">
+        <div class="container" data-aos="fade-up">
+            <div class="section-header mb-4">
+                <h2>Позиции</h2>
+                <p>Выберите параметры и добавьте нужные позиции в корзину.</p>
+            </div>
+            <div class="row">
+                <!-- Sidebar filters -->
+                <aside class="col-lg-3 mb-4 mb-lg-0">
+                    <form id="filters" method="get" class="card p-3">
+                        <div class="mb-3">
+                            <label class="form-label">Поиск</label>
+                            <input type="text"
+                                   name="q"
+                                   value="{{ request.GET.q }}"
+                                   class="form-control"
+                                   placeholder="Например: труба 20х1.5">
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label mb-2">Категории</div>
+                            <div class="vstack gap-2">
+                                {% with sel=selected_categories|default:'' %}
+                                    {% for category in categories %}
+                                        <label class="d-flex align-items-center gap-2">
+                                            <input type="checkbox"
+                                                   name="category"
+                                                   value="{{ category.slug }}"
+                                                   {% if category.slug in sel %}checked{% endif %}>
+                                            <span>{{ category.name }}</span>
+                                        </label>
+                                    {% endfor %}
+                                {% endwith %}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="d-flex align-items-center gap-2">
+                                <input type="checkbox"
+                                       name="in_stock"
+                                       value="1"
+                                       {% if request.GET.in_stock %}checked{% endif %}>
+                                <span>Только в наличии</span>
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Сортировка</label>
+                            <select name="sort" class="form-select">
+                                <option value="">По умолчанию</option>
+                                <option value="price_asc"
+                                        {% if request.GET.sort == 'price_asc' %}selected{% endif %}>
+                                    Цена: по возрастанию
+                                </option>
+                                <option value="price_desc"
+                                        {% if request.GET.sort == 'price_desc' %}selected{% endif %}>
+                                    Цена: по убыванию
+                                </option>
+                                <option value="name_asc"
+                                        {% if request.GET.sort == 'name_asc' %}selected{% endif %}>
+                                    Наименование A→Z
+                                </option>
+                                <option value="name_desc"
+                                        {% if request.GET.sort == 'name_desc' %}selected{% endif %}>
+                                    Наименование Z→A
+                                </option>
+                                <option value="newest"
+                                        {% if request.GET.sort == 'newest' %}selected{% endif %}>Сначала новые</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary w-100" type="submit">Применить</button>
+                    </form>
+                </aside>
+                <!-- Grid -->
+                <div class="col-lg-9">
+                    <!-- Top bar: results + per-page -->
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+                        <div class="small text-muted">
+                            {% if paginator %}
+                                Найдено: {{ paginator.count }}
+                            {% elif products %}
+                                Найдено: {{ products|length }}
+                            {% endif %}
+                        </div>
+                        <form method="get" class="d-flex align-items-center gap-2">
+                            {# Сохраняем остальные параметры запроса #}
+                            {% for k,v in request.GET.items %}
+                                {% if k != 'per_page' %}<input type="hidden" name="{{ k }}" value="{{ v }}">{% endif %}
+                            {% endfor %}
+                            <label class="small">Показывать по</label>
+                            <select name="per_page"
+                                    class="form-select form-select-sm"
+                                    onchange="this.form.submit()">
+                                <option value="12" {% if request.GET.per_page == '12' %}selected{% endif %}>12</option>
+                                <option value="24" {% if request.GET.per_page == '24' %}selected{% endif %}>24</option>
+                                <option value="36" {% if request.GET.per_page == '36' %}selected{% endif %}>36</option>
+                                <option value="60" {% if request.GET.per_page == '60' %}selected{% endif %}>60</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div class="row gy-4">
+                        {% for product in products %}
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card h-100 product-card">
+                                    <a href="{{ product.get_absolute_url|default:'#' }}"
+                                       class="ratio ratio-4x3 bg-light">
+                                        <img src="{% if product.image %}{{ product.image.url }}{% else %}{{ PRODUCT_PLACEHOLDER }}{% endif %}"
+                                             alt="{{ product.name }}"
+                                             class="img-fluid rounded-top object-fit-cover">
+                                    </a>
+                                    <div class="card-body d-flex flex-column">
+                                        <h3 class="h6 mb-2">
+                                            <a href="{{ product.get_absolute_url|default:'#' }}"
+                                               class="stretched-link text-decoration-none">{{ product.name }}</a>
+                                        </h3>
+                                        <ul class="list-unstyled small text-muted mb-3">
+                                            {% if product.brand %}
+                                                <li>
+                                                    <span class="text-reset">Марка</span>: {{ product.brand|default:product.brand }}
+                                                </li>
+                                            {% endif %}
+                                            {% if product.length %}
+                                                <li>
+                                                    <span class="text-reset">Длина, м</span>: {{ product.length }}
+                                                </li>
+                                            {% endif %}
+                                            {% if product.thickness %}
+                                                <li>
+                                                    <span class="text-reset">Толщина, мм</span>: {{ product.thickness }}
+                                                </li>
+                                            {% endif %}
+                                            {% if product.gost %}
+                                                <li>
+                                                    <span class="text-reset">ГОСТ</span>: {{ product.gost }}
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                        <div class="mt-auto d-flex justify-content-between align-items-end gap-2">
+                                            <div>
+                                                {% if product.price %}
+                                                    <div class="h5 mb-0">{{ product.price|floatformat:2 }} ₽</div>
+                                                    <div class="small text-muted">за {{ product.unit|default:"шт" }}</div>
+                                                {% else %}
+                                                    <div class="small text-muted">Цена по запросу</div>
+                                                {% endif %}
+                                                {% if product.in_stock %}
+                                                    <div class="badge bg-success-subtle text-success mt-1">В наличии</div>
+                                                {% else %}
+                                                    <div class="badge bg-secondary-subtle text-secondary mt-1">Нет в наличии</div>
+                                                {% endif %}
+                                            </div>
+                                            <form action="{% url 'catalog:cart_add' %}" method="post" class="ms-auto">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="product_id" value="{{ product.id }}">
+                                                <input type="hidden" name="qty" value="1">
+                                                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                                                <button type="submit"
+                                                        class="btn btn-primary btn-sm"
+                                                        {% if not product.in_stock %}disabled{% endif %}>
+                                                    В корзину
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="col-12">
+                                <div class="alert alert-secondary">По вашему запросу ничего не найдено.</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Pagination -->
+                    {% if page_obj %}
+                        <nav class="mt-4" aria-label="Навигация по страницам">
+                            <ul class="pagination justify-content-center">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           href="?{% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}"
+                                           aria-label="Предыдущая">&laquo;</a>
+                                    </li>
+                                {% endif %}
+                                {% for p in paginator.page_range %}
+                                    <li class="page-item {% if p == page_obj.number %}active{% endif %}">
+                                        <a class="page-link"
+                                           href="?{% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ p }}">{{ p }}</a>
+                                    </li>
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           href="?{% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.next_page_number }}"
+                                           aria-label="Следующая">&raquo;</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Products -->
+{% endblock %}

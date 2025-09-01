@@ -1,0 +1,187 @@
+/* ========== StalKraft — Metallic Word Preloader (CSS only) ========== */
+/* палитра */
+:root {
+  --bg: #0b0e13; /* общий тёмный фон */
+  --steel-line: rgba(255, 255, 255, 0.06);
+  --steel-1: #8ea5b8; /* «холодная сталь» */
+  --steel-2: #dfe8f0; /* светлая сталь/полировка */
+}
+
+/* фон с лёгкой «шлифовкой» */
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 11000;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(
+      1200px 600px at 25% 20%,
+      rgba(255, 255, 255, 0.05),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 450px at 75% 80%,
+      rgba(255, 255, 255, 0.04),
+      transparent 55%
+    ),
+    repeating-linear-gradient(
+      -14deg,
+      var(--steel-line) 0 2px,
+      transparent 2px 8px
+    ),
+    var(--bg);
+  box-shadow: inset 0 0 140px rgba(0, 0, 0, 0.65);
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+
+/* слово StalKraft */
+.preloader-word {
+  position: relative;
+  font-family:
+    "Work Sans",
+    "Roboto",
+    "Open Sans",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  font-size: clamp(2.4rem, 7vw, 5rem);
+  line-height: 1;
+
+  /* металлический градиент с «шевелением» */
+  background: linear-gradient(
+    90deg,
+    var(--steel-1) 0%,
+    var(--steel-2) 50%,
+    var(--steel-1) 100%
+  );
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.35);
+  text-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+
+  opacity: 0; /* старт до анимации */
+  transform: translateY(10px) scale(0.985);
+  will-change: opacity, transform, background-position;
+}
+
+/* блик-шлиф (тонкая диагональная полоска света) */
+.preloader-word::after {
+  content: "";
+  position: absolute;
+  inset: -25% -15%;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.75) 45%,
+    transparent 60%
+  );
+  mix-blend-mode: screen;
+  transform: translateX(-120%) rotate(0.001deg); /* старт за левым краем */
+  pointer-events: none;
+}
+
+/* запуск анимаций — твой JS добавляет .play */
+.preloader-word.play {
+  animation:
+    sk-word-in-out 1.65s ease forwards,
+    /* появление/исчезновение */ sk-bg-sheen 1.1s ease-out forwards; /* движение фонового градиента */
+}
+.preloader-word.play::after {
+  animation: sk-sheen-swipe 1.1s ease-out 0.06s forwards;
+}
+
+/* исчезновение оверлея (делает твой JS, тут только плавность) */
+#preloader.preloader-hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* мягкое «пробуждение» страницы под прелоадером */
+body.is-preload #header,
+body.is-preload .hero .info,
+body.is-preload main,
+body.is-preload footer {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+/* ===== keyframes ===== */
+@keyframes sk-word-in-out {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+    text-shadow: 0 10px 26px rgba(0, 0, 0, 0.5);
+  }
+  18% {
+    opacity: 1;
+    transform: none;
+  }
+  64% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) scale(1.015);
+    text-shadow: 0 18px 38px rgba(0, 0, 0, 0.55);
+  }
+}
+@keyframes sk-bg-sheen {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+@keyframes sk-sheen-swipe {
+  0% {
+    transform: translateX(-120%) rotate(0.001deg);
+  }
+  100% {
+    transform: translateX(120%) rotate(0.001deg);
+  }
+}
+
+/* доступность: без анимаций — мгновенное появление страницы */
+@media (prefers-reduced-motion: reduce) {
+  .preloader-word.play {
+    animation: none !important;
+  }
+  .preloader-word::after {
+    display: none;
+  }
+  #preloader {
+    transition: none;
+  }
+  body.is-preload #header,
+  body.is-preload .hero .info,
+  body.is-preload main,
+  body.is-preload footer {
+    transition: none;
+  }
+} /* === Показывать прелоадер только при первом заходе в сессию === */
+.sk-preloader-skip #preloader {
+  display: none !important; /* полностью скрываем слой */
+}
+
+/* Даже если на body висит is-preload — показываем контент сразу */
+.sk-preloader-skip body.is-preload #header,
+.sk-preloader-skip body.is-preload .hero .info,
+.sk-preloader-skip body.is-preload main,
+.sk-preloader-skip body.is-preload footer {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}

@@ -5,7 +5,7 @@
 
   vars:
     project_root: /home/stalkraft/StalKraftProject
-    compose_files_src: /home/stalkraft/StalKraftProject
+    compose_files_src: /home/anonim/StalKraftProject
 
   tasks:
     - name: Ensure project directory exists
@@ -14,7 +14,7 @@
         state: directory
         owner: stalkraft
         group: docker
-        mode: '0750'
+        mode: "0750"
 
     - name: Synchronize project files
       synchronize:
@@ -26,12 +26,17 @@
       delegate_to: localhost
       become: false
 
-    - name: Run docker compose
-      community.docker.docker_compose_v2:
-        project_src: "{{ project_root }}"
-        files:
-          - docker-compose.yml
-        pull: always
-        build: always
-        state: present
-        recreate: always
+    #    - name: Run docker compose
+    #      community.docker.docker_compose_v2:
+    #        project_src: "{{ project_root }}"
+    #        files:
+    #          - docker-compose.yml
+    #        pull: always
+    #        build: always
+    #        state: present
+    #        recreate: always
+
+    - name: Run docker compose via script
+      ansible.builtin.command: ./restart_prod.sh
+      args:
+        chdir: /home/stalkraft/StalKraftProject

@@ -33,6 +33,19 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost,127.0.0.1", cast=Csv(
 # Application definition
 
 INSTALLED_APPS = [
+    "wagtail.contrib.forms",
+    "wagtail.contrib.redirects",
+    "wagtail.embeds",
+    "wagtail.sites",
+    "wagtail.users",
+    "wagtail.snippets",
+    "wagtail.documents",
+    "wagtail.images",
+    "wagtail.admin",
+    "wagtail.search",
+    "wagtail",
+    "modelcluster",
+    "taggit",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -45,6 +58,7 @@ INSTALLED_APPS = [
     "ckeditor",
     "apps.core",
     "apps.catalog",
+    "apps.services",
     "apps.orders",
     "apps.blog",
     "apps.contacts",
@@ -53,12 +67,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
+    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
 REST_FRAMEWORK = {
@@ -69,9 +84,11 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 20,
 }
 
-CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", default="localhost,127.0.0.1")
+CORS_ALLOWED_ORIGINS = config(
+    "CORS_ALLOWED_ORIGINS", default="localhost,127.0.0.1", cast=Csv()
+)
 CSRF_TRUSTED_ORIGINS = config(
-    "CSRF_TRUSTED_ORIGINS", default="localhost:8080,127.0.0.1:8080"
+    "CSRF_TRUSTED_ORIGINS", default="localhost:8080,127.0.0.1:8080", cast=Csv()
 )
 
 
@@ -143,13 +160,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    os.path.join(BASE_DIR, "static/react"),
-]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+WAGTAIL_SITE_NAME = "Сталькрафт"
+WAGTAILADMIN_BASE_URL = "http://localhost"
+WAGTAIL_APPEND_SLASH = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -159,8 +176,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 USE_X_FORWARDED_HOST = True
 USE_X_FORWARDED_PORT = True
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-# SECURE_BROWSER_XSS_FILTER = True
-# SECURE_CONTENT_TYPE_NOSNIFF = True
+
+if not DEBUG:
+    SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", default=True, cast=bool)
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True

@@ -21,7 +21,7 @@ services:
     container_name: django-backend
     volumes:
       - media_files:/backend/media
-      - static_files:/backend/static
+      - static_files:/backend/staticfiles
     depends_on:
       - postgres
     environment:

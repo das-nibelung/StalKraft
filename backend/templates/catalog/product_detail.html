@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {{ product.name }}
+    — Сталькрафт
+{% endblock %}
+{% block content %}
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <img class="img-fluid rounded"
+                         src="{{ product.image.url|default:static("img/placeholder-product.png") }}"
+                         alt="{{ product.name }}" />
+                </div>
+                <div class="col-md-6">
+                    <h1 class="h3 mb-3">{{ product.name }}</h1>
+                    {% if product.price %}
+                        <div class="h4 mb-2">
+                            {{ product.price|floatformat:2 }} ₽
+                            <small class="text-muted">/ {{ product.unit }}</small>
+                        </div>
+                    {% else %}
+                        <div class="text-muted mb-2">Цена по запросу</div>
+                    {% endif %}
+                    <ul class="list-unstyled mb-4">
+                        {% if product.brand %}
+                            <li>
+                                <strong>Марка:</strong> {{ product.brand }}
+                            </li>
+                        {% endif %}
+                        {% if product.length %}
+                            <li>
+                                <strong>Длина, м:</strong> {{ product.length }}
+                            </li>
+                        {% endif %}
+                        {% if product.thickness %}
+                            <li>
+                                <strong>Толщина, мм:</strong> {{ product.thickness }}
+                            </li>
+                        {% endif %}
+                        {% if product.gost %}
+                            <li>
+                                <strong>ГОСТ:</strong> {{ product.gost }}
+                            </li>
+                        {% endif %}
+                    </ul>
+                    <form action="{% url 'catalog:cart_add' %}"
+                          method="post"
+                          class="d-flex gap-2">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{ product.id }}" />
+                        <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+                        <input type="number"
+                               name="qty"
+                               value="1"
+                               min="1"
+                               class="form-control"
+                               style="max-width: 110px" />
+                        <button
+                            class="btn btn-primary"
+                            type="submit"
+                            {%
+                            if
+                            not
+                            product.in_stock
+                            %}disabled{%
+                            endif
+                            %}
+                            >В корзину</button>
+                    </form>
+                    {% if not product.in_stock %}<div class="mt-2 text-secondary">Нет в наличии</div>{% endif %}
+                    {% if product.description %}
+                        <hr class="my-4" />
+                        <div class="text-body">{{ product.description|linebreaks }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

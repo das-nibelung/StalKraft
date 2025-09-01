@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }} — Сталькрафт{% endblock %}
+
+{% block content %}
+<div class="breadcrumbs d-flex align-items-center"
+     style="background-image:url({% static 'img/breadcrumbs-bg.jpg' %})">
+  <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
+    <h2>{{ post.title }}</h2>
+    <ol>
+      <li><a href="/">Главная</a></li>
+      <li><a href="{% url 'blog:list' %}">Блог</a></li>
+      <li>{{ post.title }}</li>
+    </ol>
+  </div>
+</div>
+
+<section id="blog" class="blog">
+  <div class="container" data-aos="fade-up">
+    <div class="row g-5">
+      <div class="col-lg-8">
+        <article class="blog-details">
+          <div class="post-img mb-3">
+            {% if post.featured_image %}
+              <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="img-fluid w-100">
+            {% endif %}
+          </div>
+
+          <h2 class="title">{{ post.title }}</h2>
+
+          <div class="meta-top small text-muted d-flex align-items-center flex-wrap gap-3 mt-2">
+            <span><i class="bi bi-person"></i> {% firstof post.author.get_full_name post.author "—" %}</span>
+            <span><i class="bi bi-clock"></i> {{ post.published_at|date:"M d, Y" }}</span>
+            <span><i class="bi bi-chat-dots"></i> {{ comments|length }} Comments</span>
+            {% if post.category %}
+              <span><i class="bi bi-folder"></i> <a href="{{ post.category.get_absolute_url }}">{{ post.category.name }}</a></span>
+            {% endif %}
+          </div>
+
+          <div class="content mt-3">{{ post.content|safe }}</div>
+
+          <div class="meta-bottom mt-4 d-flex flex-wrap align-items-center gap-2">
+            <i class="bi bi-tags"></i>
+            {% for t in post.tags.all %}
+              <a class="badge bg-light text-dark text-decoration-none" href="{{ t.get_absolute_url }}">{{ t.name }}</a>
+            {% empty %}
+              <span class="text-muted">Без тегов</span>
+            {% endfor %}
+          </div>
+        </article>
+
+        <div id="comments" class="comments mt-5">
+          <h4 class="mb-4">{{ comments|length }} Comments</h4>
+
+          {% for c in comments %}
+            <div class="comment mb-4">
+              <div class="d-flex">
+                <div class="me-3">
+                  <img src="{% static 'img/user-placeholder.png' %}" class="rounded-circle" width="48" height="48" alt="">
+                </div>
+                <div>
+                  <div class="comment-meta mb-1">
+                    <h6 class="m-0">{{ c.name }}</h6>
+                    <small class="text-muted">{{ c.created_at|date:"d M, Y" }}</small>
+                  </div>
+                  <p class="mb-0">{{ c.body|linebreaksbr }}</p>
+                </div>
+              </div>
+            </div>
+          {% empty %}
+            <p class="text-muted">Пока нет комментариев.</p>
+          {% endfor %}
+
+          <div class="reply-form mt-4">
+            <h4 class="mb-3">Post Comment</h4>
+            <p class="small text-muted">Your email address will not be published. Required fields are marked *</p>
+
+            <form method="post" action="">
+              {% csrf_token %}
+              <div class="row gy-3">
+                <div class="col-md-6">
+                  <input name="name" type="text" class="form-control" placeholder="Your Name *" required>
+                </div>
+                <div class="col-md-6">
+                  <input name="email" type="email" class="form-control" placeholder="Your Email *" required>
+                </div>
+                <div class="col-12">
+                  <textarea name="body" class="form-control" rows="6" placeholder="Your Comment *" required></textarea>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary">Post Comment</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="sidebar">
+          <div class="sidebar-item search-form">
+            <form action="{% url 'blog:list' %}">
+              <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search" />
+              <button type="submit"><i class="bi bi-search"></i></button>
+            </form>
+          </div>
+
+          <div class="sidebar-item categories">
+            <h3 class="sidebar-title">Categories</h3>
+            <ul class="mt-3">
+              {% for cat in blog_categories %}
+                <li><a href="{{ cat.get_absolute_url }}">{{ cat.name }} <span>({{ cat.num_posts }})</span></a></li>
+              {% empty %}
+                <li><span class="text-muted">Пусто</span></li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="sidebar-item recent-posts">
+            <h3 class="sidebar-title">Recent Posts</h3>
+            <div class="mt-3">
+              {% for rp in blog_recent_posts %}
+                <div class="post-item d-flex align-items-center mb-3">
+                  {% if rp.featured_image %}
+                    <img src="{{ rp.featured_image.url }}" alt="{{ rp.title }}" class="flex-shrink-0" width="80" height="60" style="object-fit: cover">
+                  {% else %}
+                    <img src="{% static 'img/blog-placeholder.jpg' %}" alt="" class="flex-shrink-0" width="80" height="60" style="object-fit: cover">
+                  {% endif %}
+                  <div class="ps-3">
+                    <h4 class="h6 mb-1"><a href="{{ rp.get_absolute_url }}">{{ rp.title }}</a></h4>
+                    <time class="small text-muted">{{ rp.published_at|date:"M d, Y" }}</time>
+                  </div>
+                </div>
+              {% empty %}
+                <p class="text-muted">Нет постов.</p>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="sidebar-item tags">
+            <h3 class="sidebar-title">Tags</h3>
+            <ul class="mt-3">
+              {% for t in blog_tags %}
+                <li><a href="{{ t.get_absolute_url }}">{{ t.name }}</a></li>
+              {% empty %}
+                <li><span class="text-muted">Пусто</span></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}
+
